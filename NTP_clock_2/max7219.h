@@ -19,8 +19,7 @@
 
 byte scr[NUM_MAX*8 + 8]; // +8 for scrolled char
 
-void sendCmd(int addr, byte cmd, byte data)
-{
+void sendCmd(int addr, byte cmd, byte data) {
   digitalWrite(CS_PIN, LOW);
   for (int i = NUM_MAX-1; i>=0; i--) {
     shiftOut(DIN_PIN, CLK_PIN, MSBFIRST, i==addr ? cmd : 0);
@@ -29,8 +28,7 @@ void sendCmd(int addr, byte cmd, byte data)
   digitalWrite(CS_PIN, HIGH);
 }
 
-void sendCmdAll(byte cmd, byte data)
-{
+void sendCmdAll(byte cmd, byte data) {
   digitalWrite(CS_PIN, LOW);
   for (int i = NUM_MAX-1; i>=0; i--) {
     shiftOut(DIN_PIN, CLK_PIN, MSBFIRST, cmd);
@@ -100,23 +98,19 @@ void refreshAll() {
 }
 
 
-void clr()
-{
+void clr() {
   for (int i = 0; i < NUM_MAX*8; i++) scr[i] = 0;
 }
 
-void scrollLeft()
-{
+void scrollLeft() {
   for(int i=0; i < NUM_MAX*8+7; i++) scr[i] = scr[i+1];
 }
 
-void invert()
-{
+void invert() {
   for (int i = 0; i < NUM_MAX*8; i++) scr[i] = ~scr[i];
 }
 
-void initMAX7219()
-{
+void initMAX7219() {
   pinMode(DIN_PIN, OUTPUT);
   pinMode(CLK_PIN, OUTPUT);
   pinMode(CS_PIN, OUTPUT);
